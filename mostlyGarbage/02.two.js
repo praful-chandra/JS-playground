@@ -43,4 +43,4 @@ const workshop = (function whatsInput(inp) {
   }
 })("ABCDEFG");
 
-workshop.sayMYInput();
+workshop.sayMYInput.call({});
