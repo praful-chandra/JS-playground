@@ -1,23 +1,33 @@
 let i = 0;
 
-function increment() {
-  i++;
-  console.log(i);
+function classRooom() {
+  this.value = "Mathematics";
+
+  return  () => {
+    console.log("THIS_VALUE:", this.value);
+  };
 }
 
 function debounce(func, wait) {
   var timeoutId = null;
-  return function debouncedFunc() {
-    setTimeout(function () {
-      func();
+
+  return function debouncedFunc(...args) {
+    clearTimeout(timeoutId);
+    let context = this;
+    timeoutId = setTimeout(function () {
+      timeoutId = null;
+      func.bind(context)(...args);
     }, wait);
   };
 }
 
 // increment();
 
-const debouncedFn = debounce(increment, 2000);
+const debouncedFn = debounce(new classRooom(), 2000);
 
-for(let i = 0; i < 3; i++){
-  debouncedFn();
-}
+const workshop = {
+  value: "ABRACADABRA",
+  getValue: debouncedFn,
+};
+
+workshop.getValue();
